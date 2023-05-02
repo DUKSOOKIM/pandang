@@ -36,88 +36,91 @@
 	</select>
 
 	<select id="select" resultType="MainLikeViewVO" parameterType="_int">
-		select j.store_number, j.store_title, j.store_view_cnt, j.like_cnt, j.member_number, j.store_file_system_name, j.channel_name, j.channel_number, count(tsl2.member_number) as is_like 
-		from (
+		select j.store_number, j.store_title, j.store_view_cnt, j.like_cnt, j.member_number,
+		(select sf.store_file_system_name 
+			from tbl_store ts 
+			join tbl_store_file sf on ts.store_number = sf.store_number and ts.store_number = j.store_number
+			limit 0,1) as store_file_system_name, j.channel_name, j.channel_number, count(tsl2.member_number) as is_like 
+			from (
 			select ts.store_number, ts.store_title, ts.store_view_cnt,
 			count(tsl.store_number) as like_cnt, ts.member_number,
-			sf.store_file_system_name,
 			tc.channel_name, tc.channel_number
 			from tbl_store ts
 			left join tbl_store_like tsl
 			on ts.store_number = tsl.store_number
-			left join tbl_store_file sf
-			on ts.store_number = sf.store_number
 			left join tbl_channel tc
 			on ts.member_number = tc.member_number
 			where ts.member_number
 			group by ts.store_number, ts.store_title, ts.store_view_cnt,
-			sf.store_file_system_name, tc.channel_name, tc.channel_number,
+			tc.channel_name, tc.channel_number,
 			ts.member_number
 			order by ts.store_view_cnt + like_cnt desc
 		)j left join tbl_store_like tsl2
 		on tsl2.member_number = #{memberNumber} and j.store_number = tsl2.store_number
 		group by j.store_number, j.store_title, j.store_view_cnt,
-			j.store_file_system_name, j.channel_name, j.channel_number,
+			j.channel_name, j.channel_number,
 			j.member_number
 		limit 12
 	</select>
 	
+
 	<select id="selectLastest" resultType="MainLikeViewVO" parameterType="_int">
-		select j.store_number, j.store_title, j.store_view_cnt, j.like_cnt, j.member_number, j.store_file_system_name, j.channel_name, j.channel_number, count(tsl2.member_number) as is_like 
-		from (
-			select ts.store_number, ts.store_title, ts.store_view_cnt,
-			count(tsl.store_number) as like_cnt, ts.member_number,
-			sf.store_file_system_name,
-			tc.channel_name, tc.channel_number
-			from tbl_store ts
-			left join tbl_store_like tsl
-			on ts.store_number = tsl.store_number
-			left join tbl_store_file sf
-			on ts.store_number = sf.store_number
-			left join tbl_channel tc
-			on ts.member_number = tc.member_number
-			where ts.member_number
-			group by ts.store_number, ts.store_title, ts.store_view_cnt,
-			sf.store_file_system_name, tc.channel_name, tc.channel_number,
-			ts.member_number
-			order by store_number desc
-		)j left join tbl_store_like tsl2
-		on tsl2.member_number = #{memberNumber} and j.store_number = tsl2.store_number
-		group by j.store_number, j.store_title, j.store_view_cnt,
-			j.store_file_system_name, j.channel_name, j.channel_number,
-			j.member_number
-		limit 12
+		select j.store_number, j.store_title, j.store_view_cnt, j.like_cnt, j.member_number,
+   	   (select sf.store_file_system_name 
+         from tbl_store ts 
+         join tbl_store_file sf on ts.store_number = sf.store_number and ts.store_number = j.store_number
+         limit 0,1) as store_file_system_name, j.channel_name, j.channel_number, count(tsl2.member_number) as is_like 
+         from (
+         select ts.store_number, ts.store_title, ts.store_view_cnt,
+         count(tsl.store_number) as like_cnt, ts.member_number,
+         tc.channel_name, tc.channel_number
+         from tbl_store ts
+         left join tbl_store_like tsl
+         on ts.store_number = tsl.store_number
+         left join tbl_channel tc
+         on ts.member_number = tc.member_number
+         where ts.member_number
+         group by ts.store_number, ts.store_title, ts.store_view_cnt,
+         tc.channel_name, tc.channel_number,
+         ts.member_number
+         order by store_number desc
+   		 )j left join tbl_store_like tsl2
+    	 on tsl2.member_number = #{memberNumber} and j.store_number = tsl2.store_number
+    	 group by j.store_number, j.store_title, j.store_view_cnt,
+         j.channel_name, j.channel_number,
+         j.member_number
+      limit 12
 	</select>
 
-	<select id="selectFollow" resultType="MainFollowVO">
-	   select ts.store_number, ts.store_title, ts.store_view_cnt, 
-       count(tsl.store_number) as like_cnt, 
-       ts.member_number, sf.store_file_system_name, 
-       tc.channel_name, tc.channel_number,
-       tf.member_number_from, tf.member_number_to
-	   from tbl_store ts
-       left join tbl_store_like tsl
-       on ts.store_number = tsl.store_number
-       left join tbl_store_file sf
-       on ts.store_number = sf.store_number
-       left join tbl_channel tc
-       on ts.member_number = tc.member_number
-       left join tbl_follow tf
-       on ts.member_number = tf.member_number_from
-       where ts.member_number = tf.member_number_from 
-       group by ts.store_number, ts.store_title, ts.store_view_cnt,
-       sf.store_file_system_name, tc.channel_name, tc.channel_number,
-       ts.member_number, tf.member_number_from, tf.member_number_to
-       limit 0, 12
+	<select id="selectFollow" resultType="MainFollowVO" parameterType="_int">
+		select j.store_number, j.store_title, j.store_view_cnt, j.like_cnt, j.member_number, j.store_file_system_name, j.channel_name, j.channel_number, count(tsl2.member_number) as is_like, tf.member_number_from, tf.member_number_to
+			from (
+			    select ts.store_number, ts.store_title, ts.store_view_cnt, count(tsl.store_number) as like_cnt, ts.member_number, sf.store_file_system_name, tc.channel_name, tc.channel_number
+			    from tbl_store ts
+			    left join tbl_store_like tsl on ts.store_number = tsl.store_number
+			    left join tbl_store_file sf on ts.store_number = sf.store_number
+			    left join tbl_channel tc on ts.member_number = tc.member_number
+			    group by ts.store_number, ts.store_title, ts.store_view_cnt, sf.store_file_system_name, tc.channel_name, tc.channel_number, ts.member_number
+			) j
+			left join tbl_store_like tsl2 on tsl2.member_number = #{memberNumber} and j.store_number = tsl2.store_number
+			left join tbl_follow tf on tf.member_number_to = j.member_number 
+			where tf.member_number_from = #{memberNumber}
+			group by j.store_number, j.store_title, j.store_view_cnt, j.store_file_system_name, j.channel_name, j.channel_number, j.member_number, tf.member_number_from, tf.member_number_to
+			limit 12
 	</select>
 	
-	<insert id="updateFollow" parameterType="MainFollowVO">
+	<select id="selectFollowing" parameterType="MainFollowingVO" resultType="_int">
+		select count(member_number_from) as is_follow from tbl_follow
+ 		where member_number_from = #{memberNumberFrom} and member_number_to = #{memberNumberTo}
+	</select>
+	
+	<insert id="insertFollow" parameterType="MainFollowingVO">
 		insert into tbl_follow
 		(member_number_from, member_number_to)
 		values(#{memberNumberFrom}, #{memberNumberTo})
 	</insert>
 	
-	<delete id="deleteFollow" parameterType="MainFollowVO">
+	<delete id="deleteFollow" parameterType="MainFollowingVO">
 		delete from tbl_follow 
 		where member_number_from = #{memberNumberFrom} and member_number_to = #{memberNumberTo}
 	</delete>

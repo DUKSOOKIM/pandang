@@ -42,7 +42,6 @@ public class SnsOkController implements Execute {
 		SnsHeaderVO snsHeaderVO = new SnsHeaderVO();
 		
 		String sessionProfileImg = snsDAO.sessionProfileImg((Integer)session.getAttribute("memberNumber"));
-		System.out.println(sessionProfileImg);
 		
 		req.setAttribute("sessionProfileImg", sessionProfileImg);
 		

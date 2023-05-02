@@ -154,14 +154,7 @@ $(".modal-follow-btn").on("click", '.add', function() {
 		data: { 
 				memberNumberFrom : memberNumberFrom,
 				memberNumberTo : memberNumberTo
-				 },
-		success: function() {
-			console.log('gegege');
-		},
-		error: function(a, b, c) {
-			console.log(c);
-		}
-
+				 }
 		});
 		
 	
@@ -179,13 +172,7 @@ $('.modal-follow-btn').on('click', '.done',function(){
 		data: { 
 				memberNumberFrom : memberNumberFrom,
 				memberNumberTo : memberNumberTo
-				 },
-		success: function() {
-			console.log('~~~~');
-		},
-		error: function(a, b, c) {
-			console.log(c);
-		}
+				 }
 
 		});
 });
@@ -322,7 +309,6 @@ $('.next').on('click', function() {
 			success: function(result) {
 				showSnsList(result);
 				thisPage = result.page;
-				console.log(thisPage);
 			}
 		});
 
@@ -338,7 +324,6 @@ $('.next').on('click', function() {
 			success: function(result) {
 				showSnsList(result);
 				thisPage = result.page;
-				console.log(thisPage);
 			}
 		});
 
@@ -360,7 +345,6 @@ $('.prev').on('click', function() {
 			success: function(result) {
 				showSnsList(result);
 				thisPage = result.page;
-				console.log(thisPage);
 			}
 		});
 
@@ -377,7 +361,6 @@ $('.prev').on('click', function() {
 			success: function(result) {
 				showSnsList(result);
 				thisPage = result.page;
-				console.log(thisPage);
 			}
 		});
 
@@ -394,7 +377,6 @@ $('.prev').on('click', function() {
 
 $('.snsList').on('click', '.post-part', function() {
 	
-	console.log($(this));
 	if($('#store').css('color') ==  'rgb(42, 197, 198)'){
 		
 	storeNumber = $(this).children('.storeNumber').val();
@@ -404,8 +386,6 @@ $('.snsList').on('click', '.post-part', function() {
 
 	snsNumber = $(this).children('.snsNumber').val();
 	
-	
-	console.log(snsNumber);
 	}
 });
 
@@ -570,7 +550,6 @@ function showPostComment(result) {
 $('.snsList').on('click', function() {
 	
 	if($('#store').css('color') ==  'rgb(42, 197, 198)'){
-		console.log(storeNumber);
 		$.ajax({
 		url: "/sns/snsStoreReadOk.sn",
 		type: 'get',
@@ -586,13 +565,7 @@ $('.snsList').on('click', function() {
 			$('.formStorePrice').val(result.list.storePrice);
 			$('.hashtagName').val(result.list.hashtagName);
 			$('.hashtagNumber').val(result.list.hashtagNumber);
-			console.log(result.list.hashtagName);
-			console.log(result.list.hashtagNumber);
-		},
-		error: function(a, b, c) {
-			console.log(c);
 		}
-
 	});
 	$.ajax({
 		url: '/sns/snsStoreFileReadOk.sn',
@@ -665,7 +638,7 @@ $('.snsList').on('click', function() {
 			console.log(c);
 		}
 
-	});
+		});
 		} else {
 	
 	$.ajax({
@@ -714,11 +687,7 @@ $('.submit').on('click', function() {
 				}
 
 			});
-		},
-		error: function(a, b, c) {
-			console.log(c);
 		}
-
 	});
 
 });
@@ -741,11 +710,7 @@ $('.comment').on('click', '.comment-delete', function() {
 				data: { snsNumber: snsNumber },
 				success: function(result) {
 					showPostComment(result);
-				},
-				error: function(a, b, c) {
-					console.log(c);
 				}
-
 			});
 		}
 	});
@@ -756,16 +721,13 @@ $('.comment').on('click', '.comment-edit', function() {
 
 
 	let $parent = $(this).closest('.comment-wrap');
-	console.log($parent);
 
 	let $children = $parent.find('.comment-option, .comment-edit-option');
-	console.log($children);
 
 	$children.eq(0).hide();
 	$children.eq(1).show();
 
 	let $content = $(this).parent().parent().next().children();
-	console.log($content);
 
 	$content.replaceWith(`<textarea class='modify-content' id="comment-modify"> </textarea>`);
 
@@ -775,7 +737,6 @@ $('.comment').on('click', '.comment-edit', function() {
 // 댓글 수정 완료 처리
 $('.comment').on('click', '.comment-modify', function() {
 	let snsCommentNumber = $(this).data('number');
-	console.log($('.modify-content').val());
 
 	$.ajax({
 		url: '/sns/snsCommentUpdateOk.snc',
@@ -792,11 +753,7 @@ $('.comment').on('click', '.comment-modify', function() {
 				data: { snsNumber: snsNumber },
 				success: function(result) {
 					showPostComment(result);
-				},
-				error: function(a, b, c) {
-					console.log(c);
 				}
-
 			});
 		}
 	});
@@ -816,7 +773,6 @@ $('.modal-delete-btn-box').on('click', function() {
 });
 
 $('.s-modal-delete-btn').on('click', function() {
-	console.log('!!?!!?!?!?!??!');
 	
 	$(".s-post-modal").css("display", "none");
 	$(".s-modal-background").css("display", "none");
@@ -925,27 +881,6 @@ $(".post-img-prev").on("click", function() {
 	
 	
 }
-
-
-/*$('.snsList').on('click', function(){
-		$.ajax({
-		url: '/sns/snsFileReadOk.sn',
-		type: 'get',
-		dataType: 'json',
-		data: { snsNumber : snsNumber },
-		success: function(result) {
-			showSnsFile(result);
-		},
-		error: function(a, b, c) {
-			console.log(c);
-		}
-
-		});
-	
-	
-	
-});*/
-
 
 
 function showStoreList(result){
@@ -1184,16 +1119,13 @@ $('.s-comment-container').on('click', '.s-comment-edit-btn', function() {
 
 
 	let $parent = $(this).closest('.s-comment-list');
-	console.log($parent);
 
 	 let $children = $parent.find('.s-comment-edit-delete-btn-box, .s-edit-btn-box');
-	console.log($children);
 
 	$children.eq(0).hide();
 	$children.eq(1).show();
 
 	let $content = $(this).closest('.s-comment-list').find('.s-comment-content');
-	console.log($content);
 
 	$content.replaceWith(`<textarea class='modify-content' id="s-comment-modify"> </textarea>`);
 
@@ -1202,7 +1134,6 @@ $('.s-comment-container').on('click', '.s-comment-edit-btn', function() {
 
 $('.s-comment-container').on('click', '.s-edit-btn', function() {
 	let storeCommentNumber = $(this).data('number');
-	console.log($('.modify-content').val());
 
 	$.ajax({
 		url: '/sns/snsStoreCommentUpdateOk.snc',
@@ -1219,9 +1150,6 @@ $('.s-comment-container').on('click', '.s-edit-btn', function() {
 				data: { storeNumber: storeNumber },
 				success: function(result) {
 					showStoreComment(result);
-				},
-				error: function(a, b, c) {
-					console.log(c);
 				}
 
 			});
@@ -1230,9 +1158,6 @@ $('.s-comment-container').on('click', '.s-edit-btn', function() {
 });
 
 $('.report-btn').on('click', function(){
-	
-	console.log($('#reportTitle').val());
-	console.log($('#report-content').val());
 	
 	$.ajax({
 		url: '/sns/snsReportOk.sn',
@@ -1309,14 +1234,7 @@ $('.s-modal-follow-btn').on('click', '.done',function(){
 		data: { 
 				memberNumberFrom : memberNumberFrom,
 				memberNumberTo : memberNumberTo
-				 },
-		success: function() {
-			console.log('~~~~');
-		},
-		error: function(a, b, c) {
-			console.log(c);
-		}
-
+				 }
 		});
 });
 
@@ -1351,9 +1269,6 @@ $(".s-report-btn-color").on({
 });
 
 $('.s-report-btn').on('click', function(){
-	
-	console.log($('#storeReportTitle').val());
-	console.log($('#storeReportContent').val());
 	
 	$.ajax({
 		url: '/sns/storeReportOk.sn',

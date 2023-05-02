@@ -31,7 +31,8 @@ public class StoreSearchController implements Execute {
 		map.put("searchInput", req.getParameter("searchInput"));
 		
 		List<StoreVO> stores = storeDAO.search(map);
-		req.setAttribute("storeList", stores);
+		System.out.println(stores.toString());
+		req.setAttribute("storeModal", stores);
 		req.setAttribute("realEndPage", realEndPage);
 
 		

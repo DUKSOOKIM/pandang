@@ -35,7 +35,7 @@ public class SnsStoreReadOkController implements Execute {
 	      
 		 snsDAO.updateStoreViewCnt(Integer.parseInt(req.getParameter("storeNumber")));
 	      
-	      
+		
 	      
 	      snsStoreVO = snsDAO.showStoreInfo(Integer.parseInt(req.getParameter("storeNumber")));
 	      snsStoreVO.setLikeCnt(snsDAO.showStoreLikeCnt(Integer.parseInt(req.getParameter("storeNumber"))));
@@ -57,15 +57,9 @@ public class SnsStoreReadOkController implements Execute {
 	    	   ifLiked = "like";
 	      }
 	      
-	     
-	      
-	      
 		    JsonObject result = new JsonObject();
 		    result.add("list", JsonParser.parseString(gson.toJson(snsStoreVO)));
 		    result.addProperty("likeTest", ifLiked);
-		    
-		    
-		    System.out.println(result.toString());
 		    
 	      resp.setContentType("application/json; charSet=utf-8");
 	      

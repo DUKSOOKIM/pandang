@@ -4,87 +4,121 @@
 <mapper namespace="store">
 	<select id="selectAll" resultType="StoreVO" parameterType="map">
 		select store_number, store_title, store_content, store_date,
-      store_price, store_view_cnt, (select count(store_number) from tbl_store_like  where store_number =s.store_number) store_like_cnt,
-      h.hashtag_number, m.member_number,
-      m.member_nickname, (select store_file_system_name 
-         from tbl_store_file sf 
-         where store_number =s.store_number  
-         limit 0,1) store_file_system_name, channel_file_system_name 
-      from tbl_member m
-      join tbl_channel c on m.member_number = c.member_number 
-      join tbl_channel_file cf on cf.channel_number = c.channel_number 
-      join tbl_store s on m.member_number = s.member_number
-      join tbl_hashtag h on
-      s.hashtag_number = h.hashtag_number
-      where h.hashtag_number = #{hashtagNumber}
-      order by store_view_cnt + store_like_cnt desc
-     	 limit
-	  #{startRow}, #{rowCount}
-	</select>
-	
-	<select id="selectAllByLike" resultType="StoreVO" parameterType="map">
-				select store_number, store_title, store_content, store_date,
-      store_price, store_view_cnt, (select count(store_number) from tbl_store_like  where store_number =s.store_number) store_like_cnt,
-      h.hashtag_number, m.member_number,
-      m.member_nickname, (select store_file_system_name 
-         from tbl_store_file sf 
-         where store_number =s.store_number  
-         limit 0,1) store_file_system_name, channel_file_system_name 
-      from tbl_member m
-      join tbl_channel c on m.member_number = c.member_number 
-      join tbl_channel_file cf on cf.channel_number = c.channel_number 
-      join tbl_store s on m.member_number = s.member_number
-      join tbl_hashtag h on
-      s.hashtag_number = h.hashtag_number
-      where h.hashtag_number = #{hashtagNumber}
-      order by store_like_cnt desc
-     	 limit
-	  #{startRow}, #{rowCount}
-	</select>
-	
-	<select id="selectAllByDate" resultType="StoreVO" parameterType="map">
-				select store_number, store_title, store_content, store_date,
-      store_price, store_view_cnt, (select count(store_number) from tbl_store_like  where store_number =s.store_number) store_like_cnt,
-      h.hashtag_number, m.member_number,
-      m.member_nickname, (select store_file_system_name 
-         from tbl_store_file sf 
-         where store_number =s.store_number  
-         limit 0,1) store_file_system_name, channel_file_system_name 
-      from tbl_member m
-      join tbl_channel c on m.member_number = c.member_number 
-      join tbl_channel_file cf on cf.channel_number = c.channel_number 
-      join tbl_store s on m.member_number = s.member_number
-      join tbl_hashtag h on
-      s.hashtag_number = h.hashtag_number
-      where h.hashtag_number = #{hashtagNumber}
-      order by store_date desc
-     	 limit
-	  #{startRow}, #{rowCount}
+		store_price, store_view_cnt, (select count(store_number) from
+		tbl_store_like where store_number =s.store_number) store_like_cnt,
+		h.hashtag_number, m.member_number,
+		c.channel_name, (select
+		store_file_system_name
+		from tbl_store_file sf
+		where store_number
+		=s.store_number
+		limit 0,1) store_file_system_name,
+		channel_file_system_name
+		from tbl_member m
+		join tbl_store s on
+		m.member_number = s.member_number
+		join tbl_channel c on
+		m.member_number = c.member_number
+		left join tbl_channel_file cf on
+		cf.channel_number = c.channel_number
+		join tbl_hashtag h on
+		s.hashtag_number = h.hashtag_number
+		where h.hashtag_number =#{hashtagNumber}
+		order by store_view_cnt + store_like_cnt desc
+		limit
+		#{startRow}, #{rowCount}
 	</select>
 
-	<select id="selectAllByFree" resultType="StoreVO" parameterType="map">
-				select store_number, store_title, store_content, store_date,
-      store_price, store_view_cnt, (select count(store_number) from tbl_store_like  where store_number =s.store_number) store_like_cnt,
-      h.hashtag_number, m.member_number,
-      m.member_nickname, (select store_file_system_name 
-         from tbl_store_file sf 
-         where store_number =s.store_number  
-         limit 0,1) store_file_system_name, channel_file_system_name 
-      from tbl_member m
-      join tbl_channel c on m.member_number = c.member_number 
-      join tbl_channel_file cf on cf.channel_number = c.channel_number 
-      join tbl_store s on m.member_number = s.member_number
-      join tbl_hashtag h on
-      s.hashtag_number = h.hashtag_number
-      where h.hashtag_number = #{hashtagNumber} and store_price = 0
-      order by store_date desc
-     	 limit
-	  #{startRow}, #{rowCount}
+	<select id="selectAllByLike" resultType="StoreVO"
+		parameterType="map">
+		select store_number, store_title, store_content, store_date,
+		store_price, store_view_cnt, (select count(store_number) from
+		tbl_store_like where store_number =s.store_number) store_like_cnt,
+		h.hashtag_number, m.member_number,
+		c.channel_name, (select
+		store_file_system_name
+		from tbl_store_file sf
+		where store_number
+		=s.store_number
+		limit 0,1) store_file_system_name,
+		channel_file_system_name
+		from tbl_member m
+		join tbl_store s on
+		m.member_number = s.member_number
+		join tbl_channel c on
+		m.member_number = c.member_number
+		left join tbl_channel_file cf on
+		cf.channel_number = c.channel_number
+		join tbl_hashtag h on
+		s.hashtag_number = h.hashtag_number
+		where h.hashtag_number =#{hashtagNumber}
+		order by store_like_cnt desc
+		limit
+		#{startRow},
+		#{rowCount}
+	</select>
+
+	<select id="selectAllByDate" resultType="StoreVO"
+		parameterType="map">
+		select store_number, store_title, store_content, store_date,
+		store_price, store_view_cnt, (select count(store_number) from
+		tbl_store_like where store_number =s.store_number) store_like_cnt,
+		h.hashtag_number, m.member_number,
+		c.channel_name, (select
+		store_file_system_name
+		from tbl_store_file sf
+		where store_number
+		=s.store_number
+		limit 0,1) store_file_system_name,
+		channel_file_system_name
+		from tbl_member m
+		join tbl_store s on
+		m.member_number = s.member_number
+		join tbl_channel c on
+		m.member_number = c.member_number
+		left join tbl_channel_file cf on
+		cf.channel_number = c.channel_number
+		join tbl_hashtag h on
+		s.hashtag_number = h.hashtag_number
+		where h.hashtag_number =#{hashtagNumber}
+		order by store_date desc
+		limit
+		#{startRow}, #{rowCount}
+	</select>
+
+	<select id="selectAllByFree" resultType="StoreVO"
+		parameterType="map">
+	select store_number, store_title, store_content, store_date,
+		store_price, store_view_cnt, (select count(store_number) from
+		tbl_store_like where store_number =s.store_number) store_like_cnt,
+		h.hashtag_number, m.member_number,
+		c.channel_name, (select
+		store_file_system_name
+		from tbl_store_file sf
+		where store_number
+		=s.store_number
+		limit 0,1) store_file_system_name,
+		channel_file_system_name
+		from tbl_member m
+		join tbl_store s on
+		m.member_number = s.member_number
+		join tbl_channel c on
+		m.member_number = c.member_number
+		left join tbl_channel_file cf on
+		cf.channel_number = c.channel_number
+		join tbl_hashtag h on
+		s.hashtag_number = h.hashtag_number
+		where h.hashtag_number =#{hashtagNumber} and store_price = 0
+		order by store_date desc
+		limit
+		#{startRow}, #{rowCount}
 	</select>
 
 	<select id="getTotal" resultType="_int" parameterType="_int">
-		select count(store_number) from tbl_store
-		where hashtag_number = #{hashtagNumber}
+		select
+		count(store_number) from tbl_store
+		where hashtag_number =
+		#{hashtagNumber}
 	</select>
 
 	<insert id="insert" parameterType="StoreDTO">
@@ -99,87 +133,227 @@
 	<select id="getSequence" resultType="_int">
 		select last_insert_id()
 	</select>
-<!-- 
- 	<select id="select" parameterType="_int" resultType="StoreVO">
-		select
-		store_number, store_title, store_content, store_date, store_price,
-		store_view_cnt, hashtag_number, member_number)
 
-	</select>
- -->
+	<!-- <select id="select" parameterType="_int" resultType="StoreVO"> select 
+		store_number, store_title, store_content, store_date, store_price, store_view_cnt, 
+		hashtag_number, member_number) </select> -->
 
 	<update id="updateViewCnt" parameterType="_int">
 		update tbl_store
-		set store_view_cnt = store_view_cnt + 1
+		set
+		store_view_cnt = store_view_cnt + 1
 		where store_number=#{storeNumber}
 	</update>
-	
-	<select id="selectModal" parameterType="_int" resultType="StoreUpdateVO">
-		select j2.store_number, store_title , store_content , store_date , store_price , store_view_cnt , j2.member_number,
-				like_count, comment_count, tc.channel_number , tc.channel_name , cf.channel_file_system_name , j2.hashtag_number, th.hashtag_name 
+
+	<select id="selectModal" parameterType="_int"
+		resultType="StoreUpdateVO">
+		select j2.store_number, store_title , store_content ,
+		store_date , store_price , store_view_cnt , j2.member_number,
+		like_count, comment_count, tc.channel_number , tc.channel_name ,
+		cf.channel_file_system_name , j2.hashtag_number, th.hashtag_name
 		from(
-			select j.store_number, store_title , store_content , store_date , store_price , store_view_cnt , j.member_number,
-				like_count, count(c.member_number) comment_count , hashtag_number
-			from (
-				select s.store_number, store_title , store_content , store_date , store_price , store_view_cnt , s.member_number, s.hashtag_number,
-					count(l.store_number) like_count
-				from tbl_store s
-				left join tbl_store_like l
-				on s.store_number = l.store_number 
-				group by s.store_number
-			)j left join tbl_store_comment c
-			on j.store_number = c.store_number 
-			group by j.store_number
+		select j.store_number, store_title , store_content , store_date ,
+		store_price , store_view_cnt , j.member_number,
+		like_count,
+		count(c.member_number) comment_count , hashtag_number
+		from (
+		select
+		s.store_number, store_title , store_content , store_date ,
+		store_price
+		, store_view_cnt , s.member_number, s.hashtag_number,
+		count(l.store_number) like_count
+		from tbl_store s
+		left join
+		tbl_store_like l
+		on s.store_number = l.store_number
+		group by
+		s.store_number
+		)j left join tbl_store_comment c
+		on j.store_number =
+		c.store_number
+		group by j.store_number
 		)j2
 		join tbl_channel tc
-		on j2.store_number = #{storeNumber} and j2.member_number = tc.member_number 
-		left join tbl_channel_file cf 
-		on tc.channel_number = cf.channel_number
-		join tbl_hashtag th 
-		on j2.hashtag_number = th.hashtag_number 
-        
+		on
+		j2.store_number =
+		#{storeNumber} and j2.member_number =
+		tc.member_number
+		left join tbl_channel_file cf
+		on tc.channel_number =
+		cf.channel_number
+		join tbl_hashtag th
+		on j2.hashtag_number =
+		th.hashtag_number
 	</select>
 
 	<select id="buy" parameterType="_int" resultType="BasketVO">
-		select sf.store_file_system_name , s.store_number , s.store_title , s.store_price 
-		from tbl_store s 
-		join tbl_store_file sf 
-		on s.store_number = sf.store_number and s.store_number = #{storeNumber}
+		select ts.store_number , ts.store_title , ts.store_price,
+	(select store_file_system_name  from tbl_store_file tsf
+  	 where tsf.store_number= ts.store_number
+  	 limit 0, 1) store_file_system_name  from tbl_store ts 
+  	 where ts.store_number = #{storeNumber}
 	</select>
 
 	<insert id="storeWrite" parameterType="StoreDTO">
 		insert into tbl_store
-		(store_title, store_content, store_price, hashtag_number, member_number)
-		values(#{storeTitle}, #{storeContent}, #{storePrice}, #{hashtagNumber}, #{memberNumber})
+		(store_title, store_content, store_price, hashtag_number,
+		member_number)
+		values(#{storeTitle}, #{storeContent}, #{storePrice},
+		#{hashtagNumber}, #{memberNumber})
 	</insert>
-	
+
 	<select id="search" parameterType="map" resultType="StoreVO">
-		select store_number, store_title, store_content, store_date,
-		store_price, store_view_cnt, (select count(store_number) from tbl_store_like  where store_number =s.store_number) store_like_cnt,
-		h.hashtag_number, m.member_number,
-		m.member_nickname, (select store_file_system_name 
-		from tbl_store_file sf 
-		where store_number =s.store_number  
-		limit 0,1) store_file_system_name, channel_file_system_name 
+		select
+		store_number, store_title, store_content, store_date,
+		store_price,
+		store_view_cnt, (select count(store_number) from tbl_store_like where
+		store_number =s.store_number) store_like_cnt,
+		h.hashtag_number,
+		m.member_number,
+		m.member_nickname, (select store_file_system_name
+		from
+		tbl_store_file sf
+		where store_number =s.store_number
+		limit 0,1)
+		store_file_system_name, channel_file_system_name
 		from tbl_member m
-		join tbl_channel c on m.member_number = c.member_number 
-		join tbl_channel_file cf on cf.channel_number = c.channel_number 
-		join tbl_store s on m.member_number = s.member_number
+		join
+		tbl_channel c on m.member_number = c.member_number
+		join
+		tbl_channel_file cf on cf.channel_number = c.channel_number
+		join
+		tbl_store s on m.member_number = s.member_number
 		join tbl_hashtag h on
 		s.hashtag_number = h.hashtag_number
-		where s.store_title like concat('%',#{searchInput},'%') 
-		order by store_view_cnt + store_like_cnt desc
+		where s.store_title like
+		concat('%',#{searchInput},'%')
+		order by store_view_cnt + store_like_cnt
+		desc
 		limit #{startRow}, #{rowCount}
 	</select>
-	
-	<select id="searchGetTotal" parameterType="string" resultType="_int">
+
+	<select id="searchGetTotal" parameterType="string"
+		resultType="_int">
 		select count(store_number)
 		from tbl_store
-		where store_title like concat('%', #{searchInput}, '%')
+		where store_title
+		like concat('%', #{searchInput}, '%')
 	</select>
-	
-	<delete id="delete" parameterType="_int">
-		delete from tbl_store where store_number = #{storeNumber}
+
+	<delete id="deleteStorePost" parameterType="_int">
+		delete from tbl_store
+		where store_number = #{storeNumber}
 	</delete>
 	
+
+	<delete id="deleteStoreBasket" parameterType="_int">
+		delete from tbl_basket
+		where store_number = #{storeNumber}
+	</delete> 
+	
+	
+	<delete id="deleteStoreReport" parameterType="_int">
+		delete from tbl_report_store
+		where report_store_number = #{storeNumber}
+	</delete>
+
+	<delete id="deleteStoreLike" parameterType="_int">
+		delete from
+		tbl_store_like
+		where store_number = #{storeNumber}
+	</delete>
+
+<!-- 	<delete id="deleteStoreLike" parameterType="_int">
+		delete from
+		tbl_store_like
+		where store_number = #{storeNumber}
+	</delete> -->
+
+	<delete id="deleteStoreComment" parameterType="_int">
+		delete from
+		tbl_store_comment
+		where store_number = #{storeNumber}
+	</delete>
+
+	<delete id="deleteStoreFile" parameterType="_int">
+		delete from
+		tbl_store_file
+		where store_number = #{storeNumber}
+	</delete>
+
+	<insert id="reportPost" parameterType="reportStoreDTO">
+		insert into tbl_report_sns
+		(report_title, report_content, report_member_number,
+		report_store_number)
+		values(#{reportTitle}, #{reportContent},
+		#{reportMemberNumber}, #{reportStoreNumber})
+	</insert>
+
+	<update id="updateStore" parameterType="storeDTO">
+		update tbl_store
+		set
+		store_title=#{storeTitle}, store_content=#{storeContent} ,
+		store_price=#{storePrice},
+		hashtag_number=#{hashtagNumber}
+		where
+		store_number=#{storeNumber}
+	</update>
+
+	<insert id="reportStorePost" parameterType="reportStoreDTO">
+		insert into
+		tbl_report_store
+		(report_title, report_content, report_member_number,
+		report_store_number)
+		values(#{reportTitle}, #{reportContent},
+		#{reportMemberNumber}, #{reportStoreNumber})
+	</insert>
+
+	<insert id="insertBasket" parameterType="BasketDTO">
+		insert into tbl_basket
+		(basket_cnt, store_number, member_number)
+		values(1, #{storeNumber},
+		#{memberNumber})
+	</insert>
+
+	<update id="updatePost" parameterType="storeDTO">
+		update tbl_store
+		set
+		store_title=#{storeTitle}, store_content=#{storeContent},
+		store_price=#{storePrice}, hashtag_number=#{hashtagNumber}
+		where
+		store_number=#{storeNumber}
+	</update>
+
+	<select id="StoreLike" parameterType="map" resultType="_int">
+		select count(store_number) from tbl_store_like 
+ 		where store_number = #{storeNumber} and member_number = #{memberNumber}
+	</select>
+
+	<insert id="updateStoreLikeCnt" parameterType="StoreVO">
+		insert into tbl_store_like
+		(store_number, member_number)
+		values(#{storeNumber}, #{memberNumber})
+	</insert>
+	
+	<delete id="deleteStoreLikeCnt" parameterType="StoreVO">
+		delete from tbl_store_like
+		where store_number = #{storeNumber}  and member_number= #{memberNumber}
+	</delete>
+
+	<select id="storefollow" parameterType="map" resultType="_int">
+		select count(member_number_from) from tbl_follow
+ 		where member_number_from = #{memberNumberFrom} and member_number_to = #{memberNumberTo}
+	</select>
+	
+	<insert id="updateStoreFollow" parameterType="StoreFollowVO">
+		insert into tbl_follow
+		(member_number_from, member_number_to)
+		values(#{memberNumberFrom}, #{memberNumberTo})
+	</insert>
+	
+	<delete id="deleteStoreFollow" parameterType="StoreFollowVO">
+		delete from tbl_follow 
+		where member_number_from = #{memberNumberFrom} and member_number_to = #{memberNumberTo}
+	</delete>
+
 </mapper>

@@ -8,5 +8,10 @@
 		on store_number = #{storeNumber} and m.member_number = s.member_number
 	</select>
 	
+	<insert id="insert" parameterType="StoreCommentDTO">
+	    insert into tbl_store_comment
+		(store_comment_content, store_comment_date, member_number, store_number)
+		values(#{storeCommentContent}, current_timestamp, #{memberNumber}, #{storeNumber})
+	</insert>
 	
 </mapper>

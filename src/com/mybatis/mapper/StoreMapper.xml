@@ -133,7 +133,10 @@
 	<select id="getSequence" resultType="_int">
 		select last_insert_id()
 	</select>
-	
+
+	<!-- <select id="select" parameterType="_int" resultType="StoreVO"> select 
+		store_number, store_title, store_content, store_date, store_price, store_view_cnt, 
+		hashtag_number, member_number) </select> -->
 
 	<update id="updateViewCnt" parameterType="_int">
 		update tbl_store
@@ -260,6 +263,12 @@
 		where store_number = #{storeNumber}
 	</delete>
 
+<!-- 	<delete id="deleteStoreLike" parameterType="_int">
+		delete from
+		tbl_store_like
+		where store_number = #{storeNumber}
+	</delete> -->
+
 	<delete id="deleteStoreComment" parameterType="_int">
 		delete from
 		tbl_store_comment
@@ -302,14 +311,17 @@
 	<insert id="insertBasket" parameterType="BasketDTO">
 		insert into tbl_basket
 		(basket_cnt, store_number, member_number)
-		values(1, #{storeNumber}, #{memberNumber})
+		values(1, #{storeNumber},
+		#{memberNumber})
 	</insert>
 
 	<update id="updatePost" parameterType="storeDTO">
 		update tbl_store
-		set store_title=#{storeTitle}, store_content=#{storeContent},
+		set
+		store_title=#{storeTitle}, store_content=#{storeContent},
 		store_price=#{storePrice}, hashtag_number=#{hashtagNumber}
-		where store_number=#{storeNumber}
+		where
+		store_number=#{storeNumber}
 	</update>
 
 	<select id="StoreLike" parameterType="map" resultType="_int">

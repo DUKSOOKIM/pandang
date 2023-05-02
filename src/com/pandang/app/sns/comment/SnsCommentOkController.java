@@ -61,6 +61,7 @@ public class SnsCommentOkController implements Execute {
 	      
 	      
 	      result.add("list", JsonParser.parseString(showCommentList.toString()));
+	     
 	      
 	     
 //	      System.out.println(result);

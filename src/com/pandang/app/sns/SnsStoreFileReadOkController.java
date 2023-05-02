@@ -31,10 +31,6 @@ public class SnsStoreFileReadOkController implements Execute {
 	    
 	      resp.setContentType("application/json; charSet=utf-8");
 	      
-	      System.out.println("===========================");
-	      System.out.println(storeFile.toString());
-	      
-	      
 	      PrintWriter out = resp.getWriter();
 	      out.print(JsonParser.parseString(gson.toJson(storeFile)));
 	      out.close();

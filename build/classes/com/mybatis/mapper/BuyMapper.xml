@@ -4,22 +4,20 @@
 <mapper namespace="buy">
 	<select id="buySeleteAll" resultType="BuyVO" parameterType="map">
 		select b.member_number, b.buy_date , b.buy_number ,
-		sf.store_file_system_name ,
 		s.store_number, s.store_title ,
-		s.store_price, b.buy_cnt , b.buy_status , b.buy_post , b.buy_post_code
-		,
+		s.store_price, b.buy_cnt , b.buy_status , b.buy_post , b.buy_post_code,
 		m.member_name , m.member_phone_number , m.member_email ,
 		m.member_address , m.member_address_detail , m.member_zone_code,
-		b.buy_msg, b.buy_name, m.member_id
+		b.buy_msg, b.buy_name, m.member_id, 
+		(select sf.store_file_system_name from tbl_store_file sf
+		where s.store_number = sf.store_number 
+		limit 0,1) store_file_system_name
 		from tbl_buy b join tbl_store s on b.member_number = #{memberNumber}
-		and b.store_number = s.store_number left outer join
-		tbl_store_file sf
-		on s.store_number = sf.store_number
+		and b.store_number = s.store_number 
 		join tbl_member m
 		on m.member_number = b.member_number
 		order by buy_date desc
-		limit
-		#{startRow}, #{rowCount}
+		limit #{startRow}, #{rowCount}
 	</select>
 
 	<select id="getTotal" resultType="_int" parameterType="_int">

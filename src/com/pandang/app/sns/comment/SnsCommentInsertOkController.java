@@ -32,9 +32,6 @@ public class SnsCommentInsertOkController implements Execute {
 		
 		snsDAO.snsCommentInsert(snsCommentVO);
 		
-		System.out.println(snsCommentVO.toString());
-		
-		
 		
 	}
 

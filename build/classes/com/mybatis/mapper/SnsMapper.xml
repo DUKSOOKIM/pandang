@@ -3,6 +3,15 @@
 
 <mapper namespace="sns">
 
+
+	<select id="sessionProfileImg" resultType='string' parameterType="_int">
+		select tcf.channel_file_system_name  from tbl_channel_file tcf 
+		left join tbl_channel tc 
+		on tc.channel_number = tcf.channel_number 
+		left join tbl_member tm 
+		on tm.member_number = tc.member_number 
+		where tm.member_number = #{memberNumber}
+	</select>
 	
 	<select id="selectAll" resultType="SnsVO" parameterType="_int">
 	select ts.sns_number, ts.sns_title, ts.sns_content, ts.sns_date,
@@ -140,6 +149,47 @@
 		delete from tbl_sns_file 
 		where sns_number = #{snsNumber}
 	</delete>
+	
+	<delete id="deleteSnsReportFromHost" parameterType="_int">
+		delete from tbl_report_sns
+		where report_sns_number = #{snsNumber}
+	</delete>
+	
+	<!-- 스토어 게시글 삭제 -->
+	<delete id="deleteStorePost" parameterType="_int">
+		delete from tbl_store
+		where store_number = #{storeNumber}
+	</delete>
+	
+	<delete id="deleteStoreLikeFromHost" parameterType="_int">
+		delete from tbl_store_like
+		where store_number = #{storeNumber}
+	</delete>
+	
+	<delete id="deleteStoreCommentFromHost" parameterType="_int">
+		delete from tbl_store_comment
+		where store_number = #{storeNumber}
+	</delete>
+	
+	<delete id="deleteStoreFileFromHost" parameterType="_int">
+		delete from tbl_store_file 
+		where store_number = #{storeNumber}
+	</delete>
+	
+	<delete id="deleteStoreBasketFromHost" parameterType="_int">
+		delete from tbl_basket 
+		where store_number = #{storeNumber}
+	</delete>
+	
+	<delete id="deleteStoreBuyFromHost" parameterType="_int">
+		delete from tbl_buy
+		where store_number = #{storeNumber}
+	</delete>
+	
+	<delete id="deleteStoreReportFromHost" parameterType="_int">
+		delete from tbl_report_store
+		where report_store_number = #{storeNumber}
+	</delete>
 
 	
 	<!-- 게시글 불러오기 -->
@@ -223,6 +273,10 @@
 		where sns_number = #{snsNumber}
 	</select>
 	
+	<select id="storeFile" parameterType="_int" resultType="string">
+		select store_file_system_name, store_number from tbl_store_file 
+		where store_number = #{storeNumber}
+	</select>
 	
 	<!-- 전체 store 게시글 수  -->
 	<select id="getStoreTotal" resultType="_int" parameterType="_int">
@@ -251,8 +305,8 @@
 	
 	<!-- sns store탭 게시글 1개 읽어오기 -->
 	<select id="showStoreInfo" parameterType="_int" resultType="snsStoreVO">
-		select ts.store_title, ts.store_number,
-		ts.store_date, th.hashtag_name, ts.store_view_cnt from tbl_store ts 
+		select ts.store_title, ts.store_number, ts.store_content, ts.store_price,
+		ts.store_date, th.hashtag_name,  th.hashtag_number, ts.store_view_cnt from tbl_store ts 
 		join tbl_hashtag th 
 		on ts.hashtag_number = th.hashtag_number
 		where ts.store_number = #{storeNumber}
@@ -273,13 +327,16 @@
 		resultType="SnsStoreCommentVO">
 		select ts.store_number , tsc.store_comment_number , tsc.store_comment_content ,
 		tm.member_nickname , tc.channel_name  ,tsc.member_number ,
-		tsc.store_comment_date
+		tsc.store_comment_date,
+		tcf.channel_file_system_name
 		from tbl_store ts left join tbl_store_comment tsc
 		on ts.store_number = tsc.store_number
 		left join tbl_member tm
 		on tsc.member_number = tm.member_number
 		left join tbl_channel tc
 		on tm.member_number = tc.member_number
+		left join tbl_channel_file tcf 
+		on tc.channel_number = tcf.channel_number 
 		where ts.store_number = #{storeNumber}
 	</select>
 	
@@ -314,7 +371,13 @@
 		delete from tbl_store_like
 		where store_number = #{storeNumber}  and member_number= #{memberNumber}
 	</delete>
-
+	
+	<select id="ifLiked" parameterType="map" resultType="_int">
+		select count(ts.store_number) from tbl_store ts 
+	 	left join tbl_store_like tsl 
+	 	on ts.store_number = tsl.store_number 
+	 	where tsl.store_number = #{storeNumber} and tsl.member_number = #{memberNumber}
+	</select>
 
 	<!-- 신고하기 -->
 	<insert id="reportPost" parameterType="reportSnsDTO">

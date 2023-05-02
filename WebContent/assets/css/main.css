@@ -155,7 +155,7 @@ font {
 }
 
 .hot-creater-sub-title {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .hot-creater-profil-wrap {
@@ -772,7 +772,7 @@ img.after-like-btn {
   font-size: 12px;
   line-height: 14px;
   color: rgb(124, 132, 132);
-  width: 50px;
+  width: 130px;
   display: flex;
   align-items: center;
 }

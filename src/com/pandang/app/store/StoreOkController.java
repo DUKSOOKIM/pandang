@@ -8,8 +8,10 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.pandang.app.Execute;
+import com.pandang.app.sns.dao.SnsDAO;
 import com.pandang.app.store.dao.StoreDAO;
 import com.pandang.app.store.dto.StoreDTO;
 import com.pandang.app.store.vo.StoreVO;
@@ -22,6 +24,7 @@ public class StoreOkController implements Execute {
 		StoreDTO storeDTO = new StoreDTO();
 		int rowCount = 12;
 		int total = storeDAO.getTotal(1);
+		String sessionProfileImg = "";
 		String temp = req.getParameter("page");
 		int page = temp == null ? 1 : Integer.valueOf(temp);
 		int startRow = (page-1)*rowCount;
@@ -30,6 +33,14 @@ public class StoreOkController implements Execute {
 		pageMap.put("rowCount", rowCount);
 		pageMap.put("startRow", startRow);
 		pageMap.put("hashtagNumber", 1);
+		
+		HttpSession session = req.getSession();
+		SnsDAO snsDAO = new SnsDAO();
+		if(session.getAttribute("memberNumber")!=null) {
+			sessionProfileImg = snsDAO.sessionProfileImg((Integer)session.getAttribute("memberNumber"));
+		}
+			
+		req.setAttribute("sessionProfileImg", sessionProfileImg);
 		
 		List<StoreVO> stores = storeDAO.selectAll(pageMap);
 		

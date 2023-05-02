@@ -4,13 +4,14 @@
 <mapper namespace="basket">
 	
 	<select id="selectAll" resultType="BasketVO" parameterType="_int">
-		select m.member_number , s.store_number , sf.store_file_system_name ,
-		s.store_title , s.store_price , b.basket_cnt
+		select m.member_number , s.store_number ,
+		s.store_title , s.store_price , b.basket_cnt,
+		(select sf.store_file_system_name from tbl_store_file sf
+		where b.store_number = sf.store_number 
+		limit 0,1) store_file_system_name
 		from tbl_member m join tbl_basket b on m.member_number = #{memberNumber}
 		and m.member_number = b.member_number
 		join tbl_store s on b.store_number = s.store_number
-		left outer join tbl_store_file sf
-		on s.store_number = sf.store_number 
 	</select>
 	
 	<delete id="delete" parameterType="_int">

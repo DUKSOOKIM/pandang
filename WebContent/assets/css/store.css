@@ -1155,3 +1155,375 @@ font {
 	width: 100%;
 }
 /*  @@@@@@@@ 푸터 영역 끝 @@@@@@@  */
+
+
+.s-post-comment-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(248, 248, 248);
+}
+.s-comment-container {
+  height: max-content;
+  width: 90%;
+  border: 1px solid rgb(241, 241, 241);
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  margin: 50px;
+}
+
+.s-commentL{
+	width: 100%;
+}
+.s-comment-list {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-height: 123px;
+  border-bottom: 1px solid rgb(241, 241, 241);
+}
+.s-comment-user-profile-shortcuts {
+  width: 47px;
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 30px;
+  cursor: pointer;
+}
+
+.s-comment-user-profile-wrap img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.s-comment-member-info {
+  height: 17px;
+  display: flex;
+  align-items: center;
+}
+
+.s-member-id {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  color: black;
+}
+
+.s-comment-date {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: rgb(124, 132, 132);
+  display: flex;
+  align-items: center;
+}
+
+.s-box {
+  width: 10px;
+  height: 100%;
+}
+
+.s-height-box {
+  width: 100%;
+  height: 10px;
+}
+
+.s-text-wrap {
+  width: 85%;
+  height: 123px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.s-comment-content {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  color: rgb(44, 48, 48);
+  
+}
+#s-comment-form {
+  width: 100%;
+  height: 100%;
+}
+.s-write-area {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+}
+.s-comment-profile-container {
+  width: 64px;
+  height: 124px;
+  margin: 0 20px;
+}
+
+.s-comment-profile-wrap {
+  display: flex;
+}
+
+.s-user-profile-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.s-user-profile-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.s-comment-input-box {
+  width: 95%;
+  height: 124px;
+}
+.s-comment-input-area {
+  width: 95%;
+  padding: 10px;
+  min-height: 120px;
+  border: 1px solid rgb(240, 245, 245);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.53;
+  letter-spacing: -0.5px;
+  outline-style: none;
+  resize:none;
+  /* border: 1px solid rgb(219, 222, 226); */
+}
+
+.s-submit-btn-box {
+  width: 98%;
+  height: 70px;
+  display: flex;
+  /* -webkit-box-pack: end; */
+
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.s-comment-submit-btn {
+  background-color: white;
+  width: 100px;
+  height: 42px;
+  border-radius: 20px;
+  font-size: 15px;
+  border-style: none;
+  border: 1px solid rgb(228, 232, 232);
+  color: rgb(44, 48, 48);
+  cursor: pointer;
+}
+/* @@@@@ 댓글 수정 삭제 테스트 @@@@@@ */
+.s-comment-edit-delete-btn-box,
+.s-edit-btn-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50px;
+  margin-left : 50px;
+}
+
+.s-edit-btn-box {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 50px;
+  margin-left : 50px;
+}
+
+.s-comment-edit-btn,
+.s-comment-delete-btn,
+.s-edit-btn {
+  border: none;
+  background: white;
+  cursor: pointer;
+  color: rgb(124, 132, 132);
+  font-size: 12px;
+}
+.s-comment-edit-btn:hover,
+.s-comment-delete-btn:hover,
+.s-edit-btn:hover {
+  color: rgb(50, 50, 50);
+}
+.s-post-content {
+	text-align : center;
+	margin-top : 100px;
+	margin-bottom : 80px;
+}
+
+.modify-content{
+	width: 99.5%;
+    height: 50px;
+    resize: none;
+    border: 1px solid rgb(240, 245, 245);
+    border-radius: 10px;
+     outline-style: none;
+}
+
+
+
+
+.s-post-modal-box {
+  /* display: none; */
+  width: 100%;
+  height: 100%;
+  background-color: blue;
+}
+.s-post-modal {
+  display: none;
+  width: 95%;
+  height: 10px;
+  position: fixed;
+  margin: auto;
+  margin-top: 30px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: 2;
+  /* display: flex; */
+}
+
+.s-post-box {
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  width: 90%;
+  height: max-content;
+}
+
+.s-post-header-container {
+  width: 100%;
+  height: 114px;
+  display: flex;
+  justify-content: center;
+}
+
+.s-post-header-box {
+  width: 95%;
+  height: 100%;
+  display: flex;
+  /* border: 1px solid black; */
+  justify-content: space-between;
+  align-items: center;
+}
+
+.s-post-header {
+  width: 60%;
+}
+
+.s-post-title {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  margin-bottom: 8px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  word-break: break-all;
+}
+
+.s-post-date-categori-box {
+  width: 60%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.s-post-date-categori-box > div {
+  margin-right: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  color: rgb(78, 84, 84);
+}
+
+.s-post-information {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.s-post-view-cnt {
+  width: 50px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+}
+.s-post-like-cnt {
+  width: 50px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+}
+.s-post-comment-cnt {
+  width: 50px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+}
+
+.s-view-cnt,
+.s-p-like-cnt,
+.s-comment-cnt {
+  margin-top: 10px;
+}
+
+.s-post {
+  width: 100%;
+  height: max-content;
+  /* border: 1px solid black; */
+  padding: 30px 0;
+}
+
+.s-post > img {
+  /* post안에 들어가는 img 최대 크기 설정 */
+  max-width: 100%;
+  max-height: 100%;
+}
+.s-post-comment-box {
+  width: 100%;
+  height: max-content;
+  /* border: 1px solid black; */
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.s-modal-background {
+  /* display: flex; */
+  display: none;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+li {
+	list-style: none;
+}
+
+
+

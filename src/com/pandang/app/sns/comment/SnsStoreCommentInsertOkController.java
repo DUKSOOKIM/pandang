@@ -19,6 +19,8 @@ public class SnsStoreCommentInsertOkController implements Execute {
 		SnsStoreCommentVO snsStoreCommentVO = new SnsStoreCommentVO();
 		
 		
+		System.out.println(Integer.parseInt(req.getParameter("memberNumber")));
+		
 		req.setCharacterEncoding("utf-8");
 		
 		snsStoreCommentVO.setMemberNumber(Integer.valueOf(req.getParameter("memberNumber")));

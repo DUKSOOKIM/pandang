@@ -24,6 +24,7 @@
 		<typeAlias type="com.pandang.app.store.dto.StoreDTO" alias="StoreDTO"/>
 		<typeAlias type="com.pandang.app.store.vo.StoreVO" alias="StoreVO"/>
 		<typeAlias type="com.pandang.app.store.vo.StoreUpdateVO" alias="StoreUpdateVO"/>
+		<typeAlias type="com.pandang.app.store.vo.StoreFollowVO" alias="StoreFollowVO"/>
 		<typeAlias type="com.pandang.app.store.comment.dto.StoreCommentDTO" alias="StoreCommentDTO"/>
 		<typeAlias type="com.pandang.app.store.comment.vo.StoreCommentVO" alias="StoreCommentVO"/>
 		<typeAlias type="com.pandang.app.store.file.dto.StoreFileDTO" alias="StoreFileDTO"/>
@@ -32,6 +33,7 @@
 		<!-- <typeAlias type="com.pandang.app.main.dto.MainDTO" alias="MainDTO"/> -->
 		<typeAlias type="com.pandang.app.main.vo.MainLikeViewVO" alias="MainLikeViewVO"/>
 		<typeAlias type="com.pandang.app.main.vo.MainFollowVO" alias="MainFollowVO"/>
+		<typeAlias type="com.pandang.app.main.vo.MainFollowingVO" alias="MainFollowingVO"/>
 		<typeAlias type="com.pandang.app.sns.vo.SnsVO" alias="SnsVO"/>
 		<typeAlias type="com.pandang.app.sns.vo.SnsFollowVO" alias="SnsFollowVO"/>
 		<typeAlias type="com.pandang.app.sns.vo.SnsHeaderVO" alias="SnsHeaderVO"/>

@@ -13,6 +13,7 @@ public class StoreVO {
 	private String channelName;
 	private String storeFileSystemName;
 	private String channelFileSystemName;
+	private String memberNickname;
 
 	public StoreVO() {
 	}
@@ -161,6 +162,16 @@ public class StoreVO {
 		this.channelFileSystemName = channelFileSystemName;
 	}
 
+	public String getMemberNickname() {
+		return memberNickname;
+	}
+	
+	
+	
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
+	}
+
 
 
 	@Override
@@ -169,6 +180,9 @@ public class StoreVO {
 				+ ", storeDate=" + storeDate + ", storePrice=" + storePrice + ", storeViewCnt=" + storeViewCnt
 				+ ", storeLikeCnt=" + storeLikeCnt + ", hashtagNumber=" + hashtagNumber + ", memberNumber="
 				+ memberNumber + ", channelName=" + channelName + ", storeFileSystemName=" + storeFileSystemName
-				+ ", channelFileSystemName=" + channelFileSystemName + "]";
+				+ ", channelFileSystemName=" + channelFileSystemName + ", memberNickname=" + memberNickname + "]";
 	}
+	
+
+
 }
